@@ -12,7 +12,7 @@ if (SERVER) then
 	util.AddNetworkString("ixConfigUnloadedList")
 	util.AddNetworkString("ixConfigPluginToggle")
 
-	ix.config.server = ix.yaml.Read("gamemodes/phelix/helix.yml") or {}
+	ix.config.server = ix.yaml.Read("gamemodes/phelix/phelix.yml") or {}
 end
 
 CAMI.RegisterPrivilege({

@@ -46,7 +46,7 @@ if (SERVER) then
 		local timeStamp = math.floor(os.time())
 
 		data.money = data.money or ix.config.Get("defaultMoney", 0)
-		data.schema = Schema and Schema.folder or "helix"
+		data.schema = Schema and Schema.folder or "phelix"
 		data.createTime = timeStamp
 		data.lastJoinTime = timeStamp
 
@@ -54,7 +54,7 @@ if (SERVER) then
 			query:Insert("name", data.name or "")
 			query:Insert("description", data.description or "")
 			query:Insert("model", data.model or "models/error.mdl")
-			query:Insert("schema", Schema and Schema.folder or "helix")
+			query:Insert("schema", Schema and Schema.folder or "phelix")
 			query:Insert("create_time", data.createTime)
 			query:Insert("last_join_time", data.lastJoinTime)
 			query:Insert("steamid", data.steamID)

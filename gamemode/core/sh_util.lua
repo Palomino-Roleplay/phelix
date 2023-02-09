@@ -70,7 +70,7 @@ end
 -- @see ix.util.Include
 function ix.util.IncludeDir(directory, bFromLua)
 	-- By default, we include relatively to Helix.
-	local baseDir = "helix"
+	local baseDir = "phelix"
 
 	-- If we're in a schema, include relative to the schema.
 	if (Schema and Schema.folder and Schema.loading) then
