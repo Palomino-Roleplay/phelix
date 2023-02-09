@@ -31,7 +31,7 @@ if (CLIENT) then
 		distance = trace.StartPos:DistToSqr(trace.HitPos)
 		scaleFraction = 1 - math.Clamp(distance / maxDistance, 0, .5)
 		crossSize = 4
-		crossGap = 25 * (scaleFraction - (LocalPlayer():IsWepRaised() and 0 or .1))
+		crossGap = 25 * scaleFraction
 
 		if (IsValid(entity) and entity:GetClass() == "ix_item" and
 			entity:GetPos():DistToSqr(trace.StartPos) <= 16384) then
@@ -40,7 +40,7 @@ if (CLIENT) then
 		end
 
 		curGap = Lerp(ft * 2, curGap, crossGap)
-		curAlpha = Lerp(ft * 2, curAlpha, !LocalPlayer():IsWepRaised() and 255 or 150)
+		curAlpha = Lerp(ft * 2, curAlpha, 255)
 		curAlpha = hook.Run("GetCrosshairAlpha", curAlpha) or curAlpha
 		colors[2] = Color(255, curAlpha, curAlpha, curAlpha)
 

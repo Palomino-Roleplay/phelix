@@ -177,14 +177,12 @@ AccessorFunc(PANEL, "entity", "Entity")
 AccessorFunc(PANEL, "mousePadding", "MousePadding", FORCE_NUMBER)
 AccessorFunc(PANEL, "bDrawArrow", "DrawArrow", FORCE_BOOL)
 AccessorFunc(PANEL, "arrowColor", "ArrowColor")
-AccessorFunc(PANEL, "bHideArrowWhenRaised", "HideArrowWhenRaised", FORCE_BOOL)
 AccessorFunc(PANEL, "bArrowFollowEntity", "ArrowFollowEntity", FORCE_BOOL)
 
 function PANEL:Init()
 	self.fraction = 0
 	self.mousePadding = 16
 	self.arrowColor = ix.config.Get("color")
-	self.bHideArrowWhenRaised = true
 	self.bArrowFollowEntity = true
 	self.bMinimal = false
 
@@ -299,7 +297,6 @@ function PANEL:Paint(width, height)
 	self:PaintUnder()
 
 	-- directional arrow
-	self.bRaised = LocalPlayer():IsWepRaised()
 
 	if (!self.bClosing) then
 		if (self.bEntity and IsValid(self.entity) and self.bArrowFollowEntity) then
@@ -314,7 +311,7 @@ function PANEL:Paint(width, height)
 	end
 
 	-- arrow
-	if (self.bDrawArrow or (self.bDrawArrow and self.bRaised and !self.bHideArrowWhenRaised)) then
+	if (self.bDrawArrow) then
 		local x, y = self:ScreenToLocal(self.arrowX, self.arrowY)
 
 		DisableClipping(true)
@@ -367,22 +364,10 @@ function PANEL:Think()
 
 		self:MoveToFront() -- dragging a panel w/ tooltip will push the tooltip beneath even the menu panel(???)
 	elseif (IsValid(self.entity) and !self.bClosing) then
-		if (self.bRaised) then
-			self:SetPos(
-				ScrW() * 0.5 - self:GetWide() * 0.5,
-				math.min(ScrH() * 0.5 + self:GetTall() + 32, ScrH() - self:GetTall())
-			)
-		else
-			local entity = self.entity
-			local min, max = entity:GetRotatedAABB(entity:OBBMins() * 0.5, entity:OBBMaxs() * 0.5)
-			min = entity:LocalToWorld(min):ToScreen().x
-			max = entity:LocalToWorld(max):ToScreen().x
-
-			self:SetPos(
-				math.Clamp(math.max(min, max), ScrW() * 0.5 + 64, ScrW() - self:GetWide()),
-				ScrH() * 0.5 - self:GetTall() * 0.5
-			)
-		end
+		self:SetPos(
+			ScrW() * 0.5 - self:GetWide() * 0.5,
+			math.min(ScrH() * 0.5 + self:GetTall() + 32, ScrH() - self:GetTall())
+		)
 	end
 end
 

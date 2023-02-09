@@ -133,17 +133,6 @@ ix.command.Add("CharTakeFlag", {
 	end
 })
 
--- ix.command.Add("ToggleRaise", {
--- 	description = "@cmdToggleRaise",
--- 	OnRun = function(self, client, arguments)
--- 		if (!timer.Exists("ixToggleRaise" .. client:SteamID())) then
--- 			timer.Create("ixToggleRaise" .. client:SteamID(), ix.config.Get("weaponRaiseTime"), 1, function()
--- 				client:ToggleWepRaised()
--- 			end)
--- 		end
--- 	end
--- })
-
 ix.command.Add("CharSetModel", {
 	description = "@cmdCharSetModel",
 	superAdminOnly = true,

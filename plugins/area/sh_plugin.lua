@@ -66,8 +66,6 @@ do
 	COMMAND.adminOnly = true
 
 	function COMMAND:OnRun(client)
-		client:SetWepRaised(false)
-
 		net.Start("ixAreaEditStart")
 		net.Send(client)
 	end

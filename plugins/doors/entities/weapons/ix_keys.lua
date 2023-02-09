@@ -39,8 +39,6 @@ SWEP.UseHands = false
 SWEP.LowerAngles = Angle(0, 5, -14)
 SWEP.LowerAngles2 = Angle(0, 5, -22)
 
-SWEP.IsAlwaysLowered = true
-SWEP.FireWhenLowered = true
 SWEP.HoldType = "passive"
 
 -- luacheck: globals ACT_VM_FISTS_DRAW ACT_VM_FISTS_HOLSTER

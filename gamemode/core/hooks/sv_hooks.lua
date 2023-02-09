@@ -105,13 +105,7 @@ function GM:PlayerUse(client, entity)
 end
 
 function GM:KeyPress(client, key)
-	if (key == IN_RELOAD) then
-		timer.Create("ixToggleRaise"..client:SteamID(), ix.config.Get("weaponRaiseTime"), 1, function()
-			if (IsValid(client)) then
-				client:ToggleWepRaised()
-			end
-		end)
-	elseif (key == IN_USE) then
+	if (key == IN_USE) then
 		local data = {}
 			data.start = client:GetShootPos()
 			data.endpos = data.start + client:GetAimVector() * 96
@@ -781,7 +775,7 @@ function GM:ShutDown()
 end
 
 function GM:GetGameDescription()
-	return "IX: "..(Schema and Schema.name or "Unknown")
+	return (Schema and Schema.name or "Unknown")
 end
 
 function GM:OnPlayerUseBusiness(client, item)
