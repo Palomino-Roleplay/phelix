@@ -112,7 +112,7 @@ end
 -- @realm shared
 -- @internal
 function ix.option.Load()
-	ix.util.Include("helix/gamemode/config/sh_options.lua")
+	ix.util.Include("phelix/gamemode/config/sh_options.lua")
 
 	if (CLIENT) then
 		local options = ix.data.Get("options", nil, true, true)

@@ -96,8 +96,8 @@ ix.util.IncludeDir("core/derma")
 ix.util.IncludeDir("core/hooks")
 
 -- Include language and default base items.
-ix.lang.LoadFromDir("helix/gamemode/languages")
-ix.item.LoadFromDir("helix/gamemode/items")
+ix.lang.LoadFromDir("phelix/gamemode/languages")
+ix.item.LoadFromDir("phelix/gamemode/items")
 
 -- Called after the gamemode has loaded.
 function GM:Initialize()

@@ -12,7 +12,7 @@ if (SERVER) then
 	util.AddNetworkString("ixConfigUnloadedList")
 	util.AddNetworkString("ixConfigPluginToggle")
 
-	ix.config.server = ix.yaml.Read("gamemodes/helix/helix.yml") or {}
+	ix.config.server = ix.yaml.Read("gamemodes/phelix/helix.yml") or {}
 end
 
 CAMI.RegisterPrivilege({
@@ -168,7 +168,7 @@ function ix.config.Load()
 		end
 	end
 
-	ix.util.Include("helix/gamemode/config/sh_config.lua")
+	ix.util.Include("phelix/gamemode/config/sh_config.lua")
 
 	if (SERVER or !IX_RELOADED) then
 		hook.Run("InitializedConfig")

@@ -6,7 +6,7 @@ Inventory manipulation and helper functions.
 
 ix.inventory = ix.inventory or {}
 
-ix.util.Include("helix/gamemode/core/meta/sh_inventory.lua")
+ix.util.Include("phelix/gamemode/core/meta/sh_inventory.lua")
 
 --- Retrieves an inventory table.
 -- @realm shared

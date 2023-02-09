@@ -3,7 +3,7 @@ ix.plugin = ix.plugin or {}
 ix.plugin.list = ix.plugin.list or {}
 ix.plugin.unloaded = ix.plugin.unloaded or {}
 
-ix.util.Include("helix/gamemode/core/meta/sh_tool.lua")
+ix.util.Include("phelix/gamemode/core/meta/sh_tool.lua")
 
 -- luacheck: globals HOOKS_CACHE
 HOOKS_CACHE = {}
@@ -246,7 +246,7 @@ end
 function ix.plugin.Initialize()
 	ix.plugin.unloaded = ix.data.Get("unloaded", {}, true, true)
 
-	ix.plugin.LoadFromDir("helix/plugins")
+	ix.plugin.LoadFromDir("phelix/plugins")
 
 	ix.plugin.Load("schema", engine.ActiveGamemode().."/schema")
 	hook.Run("InitializedSchema")

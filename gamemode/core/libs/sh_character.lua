@@ -34,7 +34,7 @@ ix.char.vars = ix.char.vars or {}
 -- @table ix.char.cache
 ix.char.cache = ix.char.cache or {}
 
-ix.util.Include("helix/gamemode/core/meta/sh_character.lua")
+ix.util.Include("phelix/gamemode/core/meta/sh_character.lua")
 
 if (SERVER) then
 	--- Creates a character object with its assigned properties and saves it to the database.

@@ -1141,5 +1141,5 @@ function ix.util.EmitQueuedSounds(entity, sounds, delay, spacing, volume, pitch)
 	return delay
 end
 
-ix.util.Include("helix/gamemode/core/meta/sh_entity.lua")
-ix.util.Include("helix/gamemode/core/meta/sh_player.lua")
+ix.util.Include("phelix/gamemode/core/meta/sh_entity.lua")
+ix.util.Include("phelix/gamemode/core/meta/sh_player.lua")

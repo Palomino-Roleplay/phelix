@@ -138,11 +138,11 @@ if (SERVER) then
 		local HANDLER = {}
 
 		function HANDLER.Load()
-			file.CreateDir("helix/logs")
+			file.CreateDir("phelix/logs")
 		end
 
 		function HANDLER.Write(client, message)
-			file.Append("helix/logs/" .. os.date("%x"):gsub("/", "-") .. ".txt", "[" .. os.date("%X") .. "]\t" .. message .. "\r\n")
+			file.Append("phelix/logs/" .. os.date("%x"):gsub("/", "-") .. ".txt", "[" .. os.date("%X") .. "]\t" .. message .. "\r\n")
 		end
 
 		ix.log.RegisterHandler("File", HANDLER)

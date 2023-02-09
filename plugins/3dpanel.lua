@@ -123,7 +123,7 @@ else
 		local info = PLUGIN.list[index]
 		local exploded = string.Explode("/", info[6])
 		local filename = exploded[#exploded]
-		local path = "helix/"..Schema.folder.."/"..PLUGIN.uniqueID.."/"
+		local path = "phelix/"..Schema.folder.."/"..PLUGIN.uniqueID.."/"
 
 		if (file.Exists(path..filename, "DATA")) then
 			local material = Material("../data/"..path..filename, "noclamp smooth")
@@ -155,7 +155,7 @@ else
 	end
 
 	local function UpdateCachedPreview(url)
-		local path = "helix/"..Schema.folder.."/"..PLUGIN.uniqueID.."/"
+		local path = "phelix/"..Schema.folder.."/"..PLUGIN.uniqueID.."/"
 
 		-- Gets the file name
 		local exploded = string.Explode("/", url)

@@ -12,7 +12,7 @@ ix.item.inventories = ix.item.inventories or {
 }
 ix.item.inventoryTypes = ix.item.inventoryTypes or {}
 
-ix.util.Include("helix/gamemode/core/meta/sh_item.lua")
+ix.util.Include("phelix/gamemode/core/meta/sh_item.lua")
 
 -- Declare some supports for logic inventory
 local zeroInv = ix.item.inventories[0]
