@@ -1,0 +1,6 @@
+"phelix"
+{
+	"base"		"sandbox"
+	"title"		"pHelix"
+	"author"	"nebulous.cloud & sil"
+}
