@@ -157,9 +157,6 @@ end, {
 	category = "server",
 	data = {min = 0, max = 5000, decimals = 1}
 })
-ix.config.Add("weaponAlwaysRaised", false, "Whether or not weapons are always raised.", nil, {
-	category = "server"
-})
 ix.config.Add("weaponRaiseTime", 1, "The time it takes for a weapon to raise.", nil, {
 	data = {min = 0.1, max = 60, decimals = 1},
 	category = "server"

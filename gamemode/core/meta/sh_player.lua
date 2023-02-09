@@ -26,13 +26,6 @@ else
 	end
 end
 
---- Returns `true` if the player has their weapon raised.
--- @realm shared
--- @treturn bool Whether or not the player has their weapon raised
-function meta:IsWepRaised()
-	return self:GetNetVar("raised", false)
-end
-
 --- Returns `true` if the player is restricted - that is to say that they are considered "bound" and cannot interact with
 -- objects normally (e.g hold weapons, use items, etc). An example of this would be a player in handcuffs.
 -- @realm shared
@@ -65,8 +58,7 @@ end
 function meta:IsFemale()
 	local model = self:GetModel():lower()
 
-	return (model:find("female") or model:find("alyx") or model:find("mossman")) != nil or
-		ix.anim.GetModelClass(model) == "citizen_female"
+	return (model:find("female") or model:find("alyx") or model:find("mossman")) != nil
 end
 
 --- Whether or not this player is stuck and cannot move.
@@ -170,57 +162,6 @@ if (SERVER) then
 	util.AddNetworkString("ixActionBar")
 	util.AddNetworkString("ixActionBarReset")
 	util.AddNetworkString("ixStringRequest")
-
-	--- Sets whether or not this player's current weapon is raised.
-	-- @realm server
-	-- @bool bState Whether or not the raise the weapon
-	-- @entity[opt=GetActiveWeapon()] weapon Weapon to raise or lower. You should pass this argument if you already have a
-	-- reference to this player's current weapon to avoid an expensive lookup for this player's current weapon.
-	function meta:SetWepRaised(bState, weapon)
-		weapon = weapon or self:GetActiveWeapon()
-
-		if (IsValid(weapon)) then
-			local bCanShoot = !bState and weapon.FireWhenLowered or bState
-			self:SetNetVar("raised", bState)
-
-			if (bCanShoot) then
-				-- delay shooting while the raise animation is playing
-				timer.Create("ixWeaponRaise" .. self:SteamID64(), 1, 1, function()
-					if (IsValid(self)) then
-						self:SetNetVar("canShoot", true)
-					end
-				end)
-			else
-				timer.Remove("ixWeaponRaise" .. self:SteamID64())
-				self:SetNetVar("canShoot", false)
-			end
-		else
-			timer.Remove("ixWeaponRaise" .. self:SteamID64())
-			self:SetNetVar("raised", false)
-			self:SetNetVar("canShoot", false)
-		end
-	end
-
-	--- Inverts this player's weapon raised state. You should use `SetWepRaised` instead of this if you already have a reference
-	-- to this player's current weapon.
-	-- @realm server
-	function meta:ToggleWepRaised()
-		local weapon = self:GetActiveWeapon()
-
-		if (!IsValid(weapon) or
-			weapon.IsAlwaysRaised or ALWAYS_RAISED[weapon:GetClass()] or
-			weapon.IsAlwaysLowered or weapon.NeverRaised) then
-			return
-		end
-
-		self:SetWepRaised(!self:IsWepRaised(), weapon)
-
-		if (self:IsWepRaised() and weapon.OnRaised) then
-			weapon:OnRaised()
-		elseif (!self:IsWepRaised() and weapon.OnLowered) then
-			weapon:OnLowered()
-		end
-	end
 
 	--- Performs a delayed action that requires this player to hold use on an entity. This is displayed to this player as a
 	-- closing ring over their crosshair.

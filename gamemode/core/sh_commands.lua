@@ -24,54 +24,54 @@ ix.command.Add("Event", {
 	end
 })
 
-ix.command.Add("PM", {
-	description = "@cmdPM",
-	arguments = {
-		ix.type.player,
-		ix.type.text
-	},
-	OnRun = function(self, client, target, message)
-		local voiceMail = target:GetData("vm")
+-- ix.command.Add("PM", {
+-- 	description = "@cmdPM",
+-- 	arguments = {
+-- 		ix.type.player,
+-- 		ix.type.text
+-- 	},
+-- 	OnRun = function(self, client, target, message)
+-- 		local voiceMail = target:GetData("vm")
 
-		if (voiceMail and voiceMail:find("%S")) then
-			return target:GetName()..": "..voiceMail
-		end
+-- 		if (voiceMail and voiceMail:find("%S")) then
+-- 			return target:GetName()..": "..voiceMail
+-- 		end
 
-		if ((client.ixNextPM or 0) < CurTime()) then
-			ix.chat.Send(client, "pm", message, false, {client, target}, {target = target})
+-- 		if ((client.ixNextPM or 0) < CurTime()) then
+-- 			ix.chat.Send(client, "pm", message, false, {client, target}, {target = target})
 
-			client.ixNextPM = CurTime() + 0.5
-			target.ixLastPM = client
-		end
-	end
-})
+-- 			client.ixNextPM = CurTime() + 0.5
+-- 			target.ixLastPM = client
+-- 		end
+-- 	end
+-- })
 
-ix.command.Add("Reply", {
-	description = "@cmdReply",
-	arguments = ix.type.text,
-	OnRun = function(self, client, message)
-		local target = client.ixLastPM
+-- ix.command.Add("Reply", {
+-- 	description = "@cmdReply",
+-- 	arguments = ix.type.text,
+-- 	OnRun = function(self, client, message)
+-- 		local target = client.ixLastPM
 
-		if (IsValid(target) and (client.ixNextPM or 0) < CurTime()) then
-			ix.chat.Send(client, "pm", message, false, {client, target}, {target = target})
-			client.ixNextPM = CurTime() + 0.5
-		end
-	end
-})
+-- 		if (IsValid(target) and (client.ixNextPM or 0) < CurTime()) then
+-- 			ix.chat.Send(client, "pm", message, false, {client, target}, {target = target})
+-- 			client.ixNextPM = CurTime() + 0.5
+-- 		end
+-- 	end
+-- })
 
-ix.command.Add("SetVoicemail", {
-	description = "@cmdSetVoicemail",
-	arguments = bit.bor(ix.type.text, ix.type.optional),
-	OnRun = function(self, client, message)
-		if (isstring(message) and message:find("%S")) then
-			client:SetData("vm", message:utf8sub(1, 240))
-			return "@vmSet"
-		else
-			client:SetData("vm")
-			return "@vmRem"
-		end
-	end
-})
+-- ix.command.Add("SetVoicemail", {
+-- 	description = "@cmdSetVoicemail",
+-- 	arguments = bit.bor(ix.type.text, ix.type.optional),
+-- 	OnRun = function(self, client, message)
+-- 		if (isstring(message) and message:find("%S")) then
+-- 			client:SetData("vm", message:utf8sub(1, 240))
+-- 			return "@vmSet"
+-- 		else
+-- 			client:SetData("vm")
+-- 			return "@vmRem"
+-- 		end
+-- 	end
+-- })
 
 ix.command.Add("CharGiveFlag", {
 	description = "@cmdCharGiveFlag",
@@ -129,17 +129,6 @@ ix.command.Add("CharTakeFlag", {
 			if (self:OnCheckAccess(v) or v == target:GetPlayer()) then
 				v:NotifyLocalized("flagTake", client:GetName(), flags, target:GetName())
 			end
-		end
-	end
-})
-
-ix.command.Add("ToggleRaise", {
-	description = "@cmdToggleRaise",
-	OnRun = function(self, client, arguments)
-		if (!timer.Exists("ixToggleRaise" .. client:SteamID())) then
-			timer.Create("ixToggleRaise" .. client:SteamID(), ix.config.Get("weaponRaiseTime"), 1, function()
-				client:ToggleWepRaised()
-			end)
 		end
 	end
 })
@@ -640,63 +629,63 @@ ix.command.Add("CharFallOver", {
 	end
 })
 
-ix.command.Add("BecomeClass", {
-	description = "@cmdBecomeClass",
-	arguments = ix.type.text,
-	OnRun = function(self, client, class)
-		local character = client:GetCharacter()
+-- ix.command.Add("BecomeClass", {
+-- 	description = "@cmdBecomeClass",
+-- 	arguments = ix.type.text,
+-- 	OnRun = function(self, client, class)
+-- 		local character = client:GetCharacter()
 
-		if (character) then
-			local num = isnumber(tonumber(class)) and tonumber(class) or -1
+-- 		if (character) then
+-- 			local num = isnumber(tonumber(class)) and tonumber(class) or -1
 
-			if (ix.class.list[num]) then
-				local v = ix.class.list[num]
+-- 			if (ix.class.list[num]) then
+-- 				local v = ix.class.list[num]
 
-				if (character:JoinClass(num)) then
-					return "@becomeClass", L(v.name, client)
-				else
-					return "@becomeClassFail", L(v.name, client)
-				end
-			else
-				for k, v in ipairs(ix.class.list) do
-					if (ix.util.StringMatches(v.uniqueID, class) or ix.util.StringMatches(L(v.name, client), class)) then
-						if (character:JoinClass(k)) then
-							return "@becomeClass", L(v.name, client)
-						else
-							return "@becomeClassFail", L(v.name, client)
-						end
-					end
-				end
-			end
+-- 				if (character:JoinClass(num)) then
+-- 					return "@becomeClass", L(v.name, client)
+-- 				else
+-- 					return "@becomeClassFail", L(v.name, client)
+-- 				end
+-- 			else
+-- 				for k, v in ipairs(ix.class.list) do
+-- 					if (ix.util.StringMatches(v.uniqueID, class) or ix.util.StringMatches(L(v.name, client), class)) then
+-- 						if (character:JoinClass(k)) then
+-- 							return "@becomeClass", L(v.name, client)
+-- 						else
+-- 							return "@becomeClassFail", L(v.name, client)
+-- 						end
+-- 					end
+-- 				end
+-- 			end
 
-			return "@invalid", L("class", client)
-		else
-			return "@illegalAccess"
-		end
-	end
-})
+-- 			return "@invalid", L("class", client)
+-- 		else
+-- 			return "@illegalAccess"
+-- 		end
+-- 	end
+-- })
 
-ix.command.Add("CharDesc", {
-	description = "@cmdCharDesc",
-	arguments = bit.bor(ix.type.text, ix.type.optional),
-	OnRun = function(self, client, description)
-		if (!description:find("%S")) then
-			return client:RequestString("@cmdCharDescTitle", "@cmdCharDescDescription", function(text)
-				ix.command.Run(client, "CharDesc", {text})
-			end, client:GetCharacter():GetDescription())
-		end
+-- ix.command.Add("CharDesc", {
+-- 	description = "@cmdCharDesc",
+-- 	arguments = bit.bor(ix.type.text, ix.type.optional),
+-- 	OnRun = function(self, client, description)
+-- 		if (!description:find("%S")) then
+-- 			return client:RequestString("@cmdCharDescTitle", "@cmdCharDescDescription", function(text)
+-- 				ix.command.Run(client, "CharDesc", {text})
+-- 			end, client:GetCharacter():GetDescription())
+-- 		end
 
-		local info = ix.char.vars.description
-		local result, fault, count = info:OnValidate(description)
+-- 		local info = ix.char.vars.description
+-- 		local result, fault, count = info:OnValidate(description)
 
-		if (result == false) then
-			return "@" .. fault, count
-		end
+-- 		if (result == false) then
+-- 			return "@" .. fault, count
+-- 		end
 
-		client:GetCharacter():SetDescription(description)
-		return "@descChanged"
-	end
-})
+-- 		client:GetCharacter():SetDescription(description)
+-- 		return "@descChanged"
+-- 	end
+-- })
 
 ix.command.Add("PlyTransfer", {
 	description = "@cmdPlyTransfer",

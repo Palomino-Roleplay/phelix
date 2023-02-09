@@ -897,11 +897,6 @@ do
 	end
 end
 
-ALWAYS_RAISED = {}
-ALWAYS_RAISED["weapon_physgun"] = true
-ALWAYS_RAISED["gmod_tool"] = true
-ALWAYS_RAISED["ix_poshelper"] = true
-
 function ix.util.FindEmptySpace(entity, filter, spacing, size, height, tolerance)
 	spacing = spacing or 32
 	size = size or 3

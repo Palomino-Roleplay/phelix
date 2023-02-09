@@ -292,43 +292,6 @@ function GM:OnCharacterMenuCreated(panel)
 	end
 end
 
-local LOWERED_ANGLES = Angle(30, 0, -25)
-
-function GM:CalcViewModelView(weapon, viewModel, oldEyePos, oldEyeAngles, eyePos, eyeAngles)
-	if (!IsValid(weapon)) then
-		return
-	end
-
-	local client = LocalPlayer()
-	local bWepRaised = client:IsWepRaised()
-
-	-- update tween if the raised state is out of date
-	if (client.ixWasWeaponRaised != bWepRaised) then
-		local fraction = bWepRaised and 0 or 1
-
-		client.ixRaisedFraction = 1 - fraction
-		client.ixRaisedTween = ix.tween.new(0.75, client, {
-			ixRaisedFraction = fraction
-		}, "outQuint")
-
-		client.ixWasWeaponRaised = bWepRaised
-	end
-
-	local fraction = client.ixRaisedFraction
-	local rotation = weapon.LowerAngles or LOWERED_ANGLES
-
-	if (ix.option.Get("altLower", true) and weapon.LowerAngles2) then
-		rotation = weapon.LowerAngles2
-	end
-
-	eyeAngles:RotateAroundAxis(eyeAngles:Up(), rotation.p * fraction)
-	eyeAngles:RotateAroundAxis(eyeAngles:Forward(), rotation.y * fraction)
-	eyeAngles:RotateAroundAxis(eyeAngles:Right(), rotation.r * fraction)
-
-	viewModel:SetAngles(eyeAngles)
-	return self.BaseClass:CalcViewModelView(weapon, viewModel, oldEyePos, oldEyeAngles, eyePos, eyeAngles)
-end
-
 function GM:LoadIntro()
 	if (!IsValid(ix.gui.intro)) then
 		vgui.Create("ixIntro")
@@ -933,14 +896,6 @@ net.Receive("ixPlayerDeath", function()
 
 	ix.gui.deathScreen = vgui.Create("ixDeathScreen")
 end)
-
-function GM:Think()
-	local client = LocalPlayer()
-
-	if (IsValid(client) and client:Alive() and client.ixRaisedTween) then
-		client.ixRaisedTween:update(FrameTime())
-	end
-end
 
 function GM:ScreenResolutionChanged(oldW, oldH)
 	hook.Run("LoadFonts", ix.config.Get("font"), ix.config.Get("genericFont"))

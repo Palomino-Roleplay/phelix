@@ -47,7 +47,6 @@ SWEP.LowerAngles = Angle(0, 5, -14)
 SWEP.LowerAngles2 = Angle(0, 5, -19)
 SWEP.KnockViewPunchAngle = Angle(-1.3, 1.8, 0)
 
-SWEP.FireWhenLowered = true
 SWEP.HoldType = "fist"
 
 SWEP.holdDistance = 64
