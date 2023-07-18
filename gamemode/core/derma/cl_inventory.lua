@@ -265,8 +265,11 @@ function PANEL:ExtraPaint(width, height)
 end
 
 function PANEL:Paint(width, height)
-	surface.SetDrawColor(0, 0, 0, 85)
+	surface.SetDrawColor(255, 255, 255, 5)
 	surface.DrawRect(2, 2, width - 4, height - 4)
+
+	surface.SetDrawColor(255, 255, 255, 15)
+	surface.DrawOutlinedRect(0, 0, width, height)
 
 	self:ExtraPaint(width, height)
 end
@@ -453,7 +456,12 @@ function PANEL:BuildSlots()
 			slot:SetPos((x - 1) * iconSize + 4, (y - 1) * iconSize + self:GetPadding(2))
 			slot:SetSize(iconSize, iconSize)
 			slot.Paint = function(panel, width, height)
-				derma.SkinFunc("PaintInventorySlot", panel, width, height)
+				-- derma.SkinFunc("PaintInventorySlot", panel, width, height)
+				surface.SetDrawColor( 255, 255, 255, 5 )
+				surface.DrawRect( 2, 2, width - 4, height - 4 )
+
+				surface.SetDrawColor( 255, 255, 255, 15 )
+				surface.DrawOutlinedRect( 0, 0, width, height )
 			end
 
 			self.slots[x][y] = slot
@@ -554,6 +562,11 @@ function PANEL:PaintDragPreview(width, height, mouseX, mouseY, itemPanel)
 			itemPanel:GetTall()
 		)
 	end
+end
+
+function PANEL:Paint(width, height)
+	-- surface.SetDrawColor( 255, 255, 255, 255 )
+	-- surface.DrawRect( 0, 0, width, height )
 end
 
 function PANEL:PaintOver(width, height)
