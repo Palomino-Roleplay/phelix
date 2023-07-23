@@ -522,6 +522,12 @@ function GM:PlayerLoadout(client)
 					client:Give(v)
 				end
 			end
+
+			if (faction.attachments) then
+				for _, v in ipairs(faction.attachments) do
+					CustomizableWeaponry:giveAttachment( client, v )
+				end
+			end
 		end
 
 		-- Ditto, but for classes.
@@ -535,6 +541,12 @@ function GM:PlayerLoadout(client)
 			if (class.weapons) then
 				for _, v in ipairs(class.weapons) do
 					client:Give(v)
+				end
+			end
+
+			if (class.attachments) then
+				for _, v in ipairs(class.attachments) do
+					CustomizableWeaponry:giveAttachment( client, v )
 				end
 			end
 		end
