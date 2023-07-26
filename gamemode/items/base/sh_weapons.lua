@@ -127,7 +127,11 @@ ITEM.functions.Equip = {
 	tip = "equipTip",
 	icon = "icon16/tick.png",
 	OnRun = function(item)
-		item:Equip(item.player)
+		item.player:EmitSound( "items/ammopickup.wav" )
+		item.player:SetAction("Equipping " .. item.name, ix.config.Get("EquipTime", 3), function( pPlayer )
+			item:Equip( pPlayer )
+		end )
+
 		return false
 	end,
 	OnCanRun = function(item)
