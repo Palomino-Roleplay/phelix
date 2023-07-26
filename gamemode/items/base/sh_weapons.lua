@@ -25,6 +25,21 @@ if (CLIENT) then
 			local name = tooltip:GetRow("name")
 			name:SetBackgroundColor(derma.GetColor("Success", tooltip))
 		end
+
+		local tAttachments = self:GetData( "attachments", {} )
+
+		if tAttachments and not table.IsEmpty( tAttachments ) then
+			local attachments = tooltip:AddRow("attachments")
+
+			local sConcatenatedAttachments = ""
+
+			for i, sAttachment in pairs( tAttachments ) do
+				sConcatenatedAttachments = sConcatenatedAttachments .. CustomizableWeaponry:findAttachment("md_rugersup").displayNameShort .. ( i ~= #tAttachments and ", " or "" )
+			end
+
+			attachments:SetText( "Attachments: " .. sConcatenatedAttachments )
+			attachments:SizeToContents()
+		end
 	end
 end
 
