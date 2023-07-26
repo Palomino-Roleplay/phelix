@@ -162,11 +162,11 @@ if (CLIENT) then
 			end
 
 			return true
-		elseif (bind:find("slot")) then
-			self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #weapons)
-			self:OnIndexChanged(weapons[self.index])
+		-- elseif (bind:find("slot")) then
+		-- 	self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #weapons)
+		-- 	self:OnIndexChanged(weapons[self.index])
 
-			return true
+		-- 	return true
 		elseif (bind:find("attack") and self.alpha > 0) then
 			local weapon = weapons[self.index]
 

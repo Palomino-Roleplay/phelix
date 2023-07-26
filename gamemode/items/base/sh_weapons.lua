@@ -25,6 +25,21 @@ if (CLIENT) then
 			local name = tooltip:GetRow("name")
 			name:SetBackgroundColor(derma.GetColor("Success", tooltip))
 		end
+
+		local tAttachments = self:GetData( "attachments", {} )
+
+		if tAttachments and not table.IsEmpty( tAttachments ) then
+			local attachments = tooltip:AddRow("attachments")
+
+			local sConcatenatedAttachments = ""
+
+			for i, sAttachment in pairs( tAttachments ) do
+				sConcatenatedAttachments = sConcatenatedAttachments .. CustomizableWeaponry:findAttachment("md_rugersup").displayNameShort .. ( i ~= #tAttachments and ", " or "" )
+			end
+
+			attachments:SetText( "Attachments: " .. sConcatenatedAttachments )
+			attachments:SizeToContents()
+		end
 	end
 end
 
@@ -72,6 +87,22 @@ ITEM:Hook("drop", function(item)
 		item:RemovePAC(owner)
 	end
 end)
+
+ITEM.functions.combine = {
+	OnRun = function( item, data )
+		Print("OnRun")
+		local sAttachment = ix.item.instances[data[1]].attachment
+		ix.item.instances[data[1]]:Remove()
+
+		item:SetData("attachments", table.Add(item:GetData("attachments", {}), {sAttachment}))
+
+		return false
+	end,
+	OnCanRun = function( item, data )
+		Print("OnCanRun")
+		return ix.item.instances[data[1]].isAttachment and ix.item.instances[data[1]].weapons[item.class]
+	end
+}
 
 -- On player uneqipped the item, Removes a weapon from the player and keep the ammo in the item.
 ITEM.functions.EquipUn = { -- sorry, for name order.
@@ -172,6 +203,16 @@ function ITEM:Equip(client, bNoSelect, bNoSound)
 			client:SetAmmo(1, ammoType)
 		end
 
+		if self:GetData( "attachments", {} ) then
+			for _, sAttachment in pairs( self:GetData( "attachments", {} ) ) do
+				CustomizableWeaponry:giveAttachment( client, sAttachment )
+
+				timer.Simple( 0.1, function() -- hacky fix for attachments not being applied
+					weapon:attachSpecificAttachment( sAttachment )
+				end )
+			end
+		end
+
 		self:SetData("equip", true)
 
 		if (self.isGrenade) then
@@ -207,6 +248,12 @@ function ITEM:Unequip(client, bPlaySound, bRemoveItem)
 		client:StripWeapon(self.class)
 	else
 		print(Format("[Helix] Cannot unequip weapon - %s does not exist!", self.class))
+	end
+
+	if self:GetData( "attachments", {} ) then
+		for _, sAttachment in pairs( self:GetData("attachments", {} ) ) do
+			CustomizableWeaponry:removeAttachment( client, sAttachment )
+		end
 	end
 
 	if (bPlaySound) then
@@ -253,6 +300,16 @@ function ITEM:OnLoadout()
 
 			weapon.ixItem = self
 			weapon:SetClip1(self:GetData("ammo", 0))
+
+			if self:GetData( "attachments", {} ) then
+				for _, sAttachment in pairs( self:GetData( "attachments", {} ) ) do
+					CustomizableWeaponry:giveAttachment( client, sAttachment )
+	
+					timer.Simple( 0.1, function() -- hacky fix for attachments not being applied
+						weapon:attachSpecificAttachment( sAttachment )
+					end )
+				end
+			end
 
 			if (self.OnEquipWeapon) then
 				self:OnEquipWeapon(client, weapon)
