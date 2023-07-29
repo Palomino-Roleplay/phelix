@@ -10,6 +10,7 @@ ITEM.isWeapon = true
 ITEM.isGrenade = false
 ITEM.weaponCategory = "sidearm"
 ITEM.useSound = "items/ammo_pickup.wav"
+ITEM.iconColor = Color( 255, 98, 98 )
 
 -- Inventory drawing
 if (CLIENT) then
@@ -127,7 +128,11 @@ ITEM.functions.Equip = {
 	tip = "equipTip",
 	icon = "icon16/tick.png",
 	OnRun = function(item)
-		item:Equip(item.player)
+		item.player:EmitSound( "items/ammopickup.wav" )
+		item.player:SetAction("Equipping " .. item.name, ix.config.Get("EquipTime", 3), function( pPlayer )
+			item:Equip( pPlayer )
+		end )
+
 		return false
 	end,
 	OnCanRun = function(item)

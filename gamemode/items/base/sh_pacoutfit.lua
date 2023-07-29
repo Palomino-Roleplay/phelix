@@ -6,6 +6,7 @@ ITEM.model = "models/Gibs/HGIBS.mdl"
 ITEM.width = 1
 ITEM.height = 1
 ITEM.outfitCategory = "hat"
+ITEM.iconColor = Color( 255, 227, 98 )
 ITEM.pacData = {}
 
 --[[

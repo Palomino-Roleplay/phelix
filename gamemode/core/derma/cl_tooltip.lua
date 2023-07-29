@@ -269,13 +269,14 @@ function PANEL:SetEntity(entity)
 	end
 
 	if (entity:IsPlayer()) then
-		local character = entity:GetCharacter()
+		return
+		-- local character = entity:GetCharacter()
 
-		if (character) then
-			-- we want to group things that will most likely have backgrounds (e.g name/health status)
-			hook.Run("PopulateImportantCharacterInfo", entity, character, self)
-			hook.Run("PopulateCharacterInfo", entity, character, self)
-		end
+		-- if (character) then
+		-- 	-- we want to group things that will most likely have backgrounds (e.g name/health status)
+		-- 	hook.Run("PopulateImportantCharacterInfo", entity, character, self)
+		-- 	hook.Run("PopulateCharacterInfo", entity, character, self)
+		-- end
 	else
 		if (entity.OnPopulateEntityInfo) then
 			entity:OnPopulateEntityInfo(self)

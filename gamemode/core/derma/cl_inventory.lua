@@ -264,9 +264,23 @@ end
 function PANEL:ExtraPaint(width, height)
 end
 
+
+local oGradientMat = ix.util.GetMaterial("vgui/gradient-u")
+
 function PANEL:Paint(width, height)
-	surface.SetDrawColor(0, 0, 0, 85)
-	surface.DrawRect(2, 2, width - 4, height - 4)
+	local oColor = self.itemTable.iconColor or Color(200, 200, 200, 255 )
+
+	surface.SetDrawColor( ColorAlpha( oColor, 8 ):Unpack() )
+	surface.DrawRect(1, 1, width - 2, height - 2)
+
+	surface.SetDrawColor( ColorAlpha( oColor, 16 ):Unpack() )
+	surface.SetMaterial(oGradientMat)
+	surface.DrawTexturedRect(1, 1, width - 2, height - 2)
+
+	-- Print( self.itemTable.iconColor )
+
+	surface.SetDrawColor( ColorAlpha( oColor, 128 ):Unpack() )
+	surface.DrawOutlinedRect(0, 0, width, height)
 
 	self:ExtraPaint(width, height)
 end
@@ -453,7 +467,12 @@ function PANEL:BuildSlots()
 			slot:SetPos((x - 1) * iconSize + 4, (y - 1) * iconSize + self:GetPadding(2))
 			slot:SetSize(iconSize, iconSize)
 			slot.Paint = function(panel, width, height)
-				derma.SkinFunc("PaintInventorySlot", panel, width, height)
+				-- derma.SkinFunc("PaintInventorySlot", panel, width, height)
+				surface.SetDrawColor( 255, 255, 255, 2 )
+				surface.DrawRect( 1, 1, width - 2, height - 2 )
+
+				surface.SetDrawColor( 255, 255, 255, 8 )
+				surface.DrawOutlinedRect( 0, 0, width, height )
 			end
 
 			self.slots[x][y] = slot
@@ -554,6 +573,11 @@ function PANEL:PaintDragPreview(width, height, mouseX, mouseY, itemPanel)
 			itemPanel:GetTall()
 		)
 	end
+end
+
+function PANEL:Paint(width, height)
+	-- surface.SetDrawColor( 255, 255, 255, 255 )
+	-- surface.DrawRect( 0, 0, width, height )
 end
 
 function PANEL:PaintOver(width, height)
