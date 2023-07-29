@@ -288,7 +288,7 @@ if (SERVER) then
 	util.AddNetworkString("PlayerVehicle")
 
 	function GM:PlayerEnteredVehicle(client, vehicle, role)
-		UpdateAnimationTable(client)
+		-- UpdateAnimationTable(client)
 
 		net.Start("PlayerVehicle")
 			net.WriteEntity(client)
@@ -298,7 +298,7 @@ if (SERVER) then
 	end
 
 	function GM:PlayerLeaveVehicle(client, vehicle)
-		UpdateAnimationTable(client)
+		-- UpdateAnimationTable(client)
 
 		net.Start("PlayerVehicle")
 			net.WriteEntity(client)
@@ -312,6 +312,6 @@ else
 		local vehicle = net.ReadEntity()
 		local bEntered = net.ReadBool()
 
-		UpdateAnimationTable(client, bEntered and vehicle or false)
+		-- UpdateAnimationTable(client, bEntered and vehicle or false)
 	end)
 end
