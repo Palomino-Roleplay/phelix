@@ -164,7 +164,7 @@ if (SERVER) then
 		end
 	end
 else
-	local function AttachPart(client, uniqueID)
+	function ix.pac.AttachPart(client, uniqueID)
 		local itemTable = ix.item.list[uniqueID]
 		local pacData = ix.pac.list[uniqueID]
 
@@ -185,10 +185,12 @@ else
 					end
 				end)
 			end
+
+			hook.Run( "ix.pac.OnPartAttached", client, uniqueID )
 		end
 	end
 
-	local function RemovePart(client, uniqueID)
+	function ix.pac.RemovePart(client, uniqueID)
 		local pacData = ix.pac.list[uniqueID]
 
 		if (pacData) then
@@ -197,6 +199,8 @@ else
 			else
 				pac.SetupENT(client)
 			end
+
+			hook.Run( "ix.pac.OnPartRemoved", client, uniqueID )
 		end
 	end
 
@@ -214,7 +218,7 @@ else
 					local parts = v:GetParts()
 
 					for k2, _ in pairs(parts) do
-						AttachPart(v, k2)
+						ix.pac.AttachPart(v, k2)
 					end
 				end
 			end
@@ -233,7 +237,7 @@ else
 			pac.SetupENT(wearer)
 		end
 
-		AttachPart(wearer, uid)
+		ix.pac.AttachPart(wearer, uid)
 	end)
 
 	net.Receive("ixPartRemove", function(length)
@@ -246,7 +250,7 @@ else
 			pac.SetupENT(wearer)
 		end
 
-		RemovePart(wearer, uid)
+		ix.pac.RemovePart(wearer, uid)
 	end)
 
 	net.Receive("ixPartReset", function(length)
@@ -260,7 +264,7 @@ else
 		end
 
 		for k, _ in pairs(uidList) do
-			RemovePart(wearer, k)
+			ix.pac.RemovePart(wearer, k)
 		end
 	end)
 
