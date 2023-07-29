@@ -264,11 +264,22 @@ end
 function PANEL:ExtraPaint(width, height)
 end
 
-function PANEL:Paint(width, height)
-	surface.SetDrawColor(255, 255, 255, 5)
-	surface.DrawRect(2, 2, width - 4, height - 4)
 
-	surface.SetDrawColor(255, 255, 255, 15)
+local oGradientMat = ix.util.GetMaterial("vgui/gradient-u")
+
+function PANEL:Paint(width, height)
+	local oColor = self.itemTable.iconColor or Color(200, 200, 200, 255 )
+
+	surface.SetDrawColor( ColorAlpha( oColor, 8 ):Unpack() )
+	surface.DrawRect(1, 1, width - 2, height - 2)
+
+	surface.SetDrawColor( ColorAlpha( oColor, 16 ):Unpack() )
+	surface.SetMaterial(oGradientMat)
+	surface.DrawTexturedRect(1, 1, width - 2, height - 2)
+
+	-- Print( self.itemTable.iconColor )
+
+	surface.SetDrawColor( ColorAlpha( oColor, 128 ):Unpack() )
 	surface.DrawOutlinedRect(0, 0, width, height)
 
 	self:ExtraPaint(width, height)
@@ -457,10 +468,10 @@ function PANEL:BuildSlots()
 			slot:SetSize(iconSize, iconSize)
 			slot.Paint = function(panel, width, height)
 				-- derma.SkinFunc("PaintInventorySlot", panel, width, height)
-				surface.SetDrawColor( 255, 255, 255, 5 )
-				surface.DrawRect( 2, 2, width - 4, height - 4 )
+				surface.SetDrawColor( 255, 255, 255, 2 )
+				surface.DrawRect( 1, 1, width - 2, height - 2 )
 
-				surface.SetDrawColor( 255, 255, 255, 15 )
+				surface.SetDrawColor( 255, 255, 255, 8 )
 				surface.DrawOutlinedRect( 0, 0, width, height )
 			end
 
