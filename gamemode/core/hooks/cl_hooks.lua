@@ -490,6 +490,7 @@ do
 			aimEntity = lastEntity
 		end
 
+		-- @TODO: Replace ix.gui.menu with PRP.UI.PLY_MENU & appropriate elements
 		local panel = ix.gui.entityInfo
 		local bShouldShow = time >= aimTime and (!IsValid(ix.gui.menu) or ix.gui.menu.bClosing) and
 			(!IsValid(ix.gui.characterMenu) or ix.gui.characterMenu.bClosing)
