@@ -91,7 +91,6 @@ end)
 
 ITEM.functions.combine = {
 	OnRun = function( item, data )
-		Print("OnRun")
 		local sAttachment = ix.item.instances[data[1]].attachment
 		ix.item.instances[data[1]]:Remove()
 
@@ -100,7 +99,6 @@ ITEM.functions.combine = {
 		return false
 	end,
 	OnCanRun = function( item, data )
-		Print("OnCanRun")
 		return ix.item.instances[data[1]].isAttachment and ix.item.instances[data[1]].weapons[item.class]
 	end
 }
