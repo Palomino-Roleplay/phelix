@@ -57,6 +57,8 @@ function zeroInv:Add(uniqueID, quantity, data, x, y)
 end
 
 function ix.item.Instance(index, uniqueID, itemData, x, y, callback, characterID, playerID)
+	itemData = itemData or {}
+
 	if (!uniqueID or ix.item.list[uniqueID]) then
 		local query = mysql:Insert("ix_items")
 			query:Insert("inventory_id", index)
