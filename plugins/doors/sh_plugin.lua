@@ -75,7 +75,7 @@ ix.config.Add("doorSellRatio", 0.5, "How much of the door price is returned when
 	data = {min = 0, max = 1.0, decimals = 1},
 	category = "dConfigName"
 })
-ix.config.Add("doorLockTime", 1, "How long it takes to (un)lock a door.", nil, {
+ix.config.Add("doorLockTime", 0, "How long it takes to (un)lock a door.", nil, {
 	data = {min = 0, max = 10.0, decimals = 1},
 	category = "dConfigName"
 })
