@@ -104,6 +104,8 @@ if (SERVER) then
 				local character = ix.char.loaded[v]
 
 				if (character and !IsValid(character.client)) then
+					character.vars.faction = "citizen"
+					character.vars.class = nil
 					character.player = client
 				end
 			end
@@ -144,6 +146,8 @@ if (SERVER) then
 						local character = ix.char.New(data, charID, client)
 
 						hook.Run("CharacterRestored", character)
+						character.vars.faction = "citizen"
+						character.vars.class = nil
 						character.vars.inv = {
 							[1] = -1,
 						}

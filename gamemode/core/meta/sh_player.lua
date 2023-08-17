@@ -231,6 +231,8 @@ if (SERVER) then
 			net.Start("ixActionBarReset")
 			net.Send(self)
 
+			self:SetNetVar("actionString", nil)
+
 			return
 		end
 
@@ -243,18 +245,20 @@ if (SERVER) then
 				net.WriteFloat(finishTime)
 				net.WriteString(text)
 			net.Send(self)
+
+			self:SetNetVar("actionString", text)
 		end
 
-		-- If we have provided a callback, run it delayed.
-		if (callback) then
-			-- Create a timer that runs once with a delay.
-			timer.Create("ixAct"..self:UniqueID(), time, 1, function()
-				-- Call the callback if the player is still valid.
-				if (IsValid(self)) then
+		-- Create a timer that runs once with a delay.
+		timer.Create("ixAct"..self:UniqueID(), time, 1, function()
+			-- Call the callback if the player is still valid.
+			if (IsValid(self)) then
+				self:SetNetVar("actionString", nil)
+				if (callback) then
 					callback(self)
 				end
-			end)
-		end
+			end
+		end)
 	end
 
 	--- Opens up a text box on this player's screen for input and returns the result. Remember to sanitize the user's input if

@@ -3,11 +3,18 @@ function GM:ForceDermaSkin()
 	return "helix"
 end
 
-function GM:ScoreboardShow()
+-- function GM:ScoreboardShow()
+-- 	if (LocalPlayer():GetCharacter()) then
+-- 		vgui.Create("ixMenu")
+-- 	end
+-- end
+
+-- @TODO: Remove
+concommand.Add("ix_menu", function()
 	if (LocalPlayer():GetCharacter()) then
 		vgui.Create("ixMenu")
 	end
-end
+end)
 
 function GM:ScoreboardHide()
 end
@@ -483,6 +490,7 @@ do
 			aimEntity = lastEntity
 		end
 
+		-- @TODO: Replace ix.gui.menu with PRP.UI.PLY_MENU & appropriate elements
 		local panel = ix.gui.entityInfo
 		local bShouldShow = time >= aimTime and (!IsValid(ix.gui.menu) or ix.gui.menu.bClosing) and
 			(!IsValid(ix.gui.characterMenu) or ix.gui.characterMenu.bClosing)
@@ -889,13 +897,13 @@ net.Receive("ixStringRequest", function()
 	end)
 end)
 
-net.Receive("ixPlayerDeath", function()
-	if (IsValid(ix.gui.deathScreen)) then
-		ix.gui.deathScreen:Remove()
-	end
+-- net.Receive("ixPlayerDeath", function()
+-- 	if (IsValid(ix.gui.deathScreen)) then
+-- 		ix.gui.deathScreen:Remove()
+-- 	end
 
-	ix.gui.deathScreen = vgui.Create("ixDeathScreen")
-end)
+-- 	ix.gui.deathScreen = vgui.Create("ixDeathScreen")
+-- end)
 
 function GM:ScreenResolutionChanged(oldW, oldH)
 	hook.Run("LoadFonts", ix.config.Get("font"), ix.config.Get("genericFont"))
@@ -936,8 +944,8 @@ hook.Add("player_spawn", "ixPlayerSpawn", function(data)
 		client:SetupBones()
 		client:SetIK(false)
 
-		if (client == LocalPlayer() and (IsValid(ix.gui.deathScreen) and !ix.gui.deathScreen:IsClosing())) then
-			ix.gui.deathScreen:Close()
-		end
+		-- if (client == LocalPlayer() and (IsValid(ix.gui.deathScreen) and !ix.gui.deathScreen:IsClosing())) then
+		-- 	ix.gui.deathScreen:Close()
+		-- end
 	end
 end)
