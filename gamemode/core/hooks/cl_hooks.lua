@@ -897,13 +897,13 @@ net.Receive("ixStringRequest", function()
 	end)
 end)
 
-net.Receive("ixPlayerDeath", function()
-	if (IsValid(ix.gui.deathScreen)) then
-		ix.gui.deathScreen:Remove()
-	end
+-- net.Receive("ixPlayerDeath", function()
+-- 	if (IsValid(ix.gui.deathScreen)) then
+-- 		ix.gui.deathScreen:Remove()
+-- 	end
 
-	ix.gui.deathScreen = vgui.Create("ixDeathScreen")
-end)
+-- 	ix.gui.deathScreen = vgui.Create("ixDeathScreen")
+-- end)
 
 function GM:ScreenResolutionChanged(oldW, oldH)
 	hook.Run("LoadFonts", ix.config.Get("font"), ix.config.Get("genericFont"))
@@ -944,8 +944,8 @@ hook.Add("player_spawn", "ixPlayerSpawn", function(data)
 		client:SetupBones()
 		client:SetIK(false)
 
-		if (client == LocalPlayer() and (IsValid(ix.gui.deathScreen) and !ix.gui.deathScreen:IsClosing())) then
-			ix.gui.deathScreen:Close()
-		end
+		-- if (client == LocalPlayer() and (IsValid(ix.gui.deathScreen) and !ix.gui.deathScreen:IsClosing())) then
+		-- 	ix.gui.deathScreen:Close()
+		-- end
 	end
 end)
