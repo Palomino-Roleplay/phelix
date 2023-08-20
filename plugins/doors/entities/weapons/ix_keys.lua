@@ -39,7 +39,7 @@ SWEP.UseHands = false
 SWEP.LowerAngles = Angle(0, 5, -14)
 SWEP.LowerAngles2 = Angle(0, 5, -22)
 
-SWEP.HoldType = "passive"
+SWEP.HoldType = "normal"
 
 -- luacheck: globals ACT_VM_FISTS_DRAW ACT_VM_FISTS_HOLSTER
 ACT_VM_FISTS_DRAW = 2

@@ -528,6 +528,12 @@ function GM:PlayerLoadout(client)
 					CustomizableWeaponry:giveAttachment( client, v )
 				end
 			end
+
+			-- @TODO: Edge case if faction/class doesn't have a model.
+
+			if faction.modelBase then
+				client:SetModel( faction:GetModel(client) )
+			end
 		end
 
 		-- Ditto, but for classes.
@@ -549,6 +555,12 @@ function GM:PlayerLoadout(client)
 					CustomizableWeaponry:giveAttachment( client, v )
 				end
 			end
+
+			if class.modelBase then
+				client:SetModel( class:GetModel(client) )
+			end
+
+			-- client:SetModel( class:GetModel(client) )
 		end
 
 		-- Apply any flags as needed.
