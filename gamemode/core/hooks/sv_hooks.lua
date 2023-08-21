@@ -600,70 +600,70 @@ function GM:PostPlayerLoadout(client)
 	end
 end
 
-local deathSounds = {
-	Sound("vo/npc/male01/pain07.wav"),
-	Sound("vo/npc/male01/pain08.wav"),
-	Sound("vo/npc/male01/pain09.wav")
-}
+-- local deathSounds = {
+-- 	Sound("vo/npc/male01/pain07.wav"),
+-- 	Sound("vo/npc/male01/pain08.wav"),
+-- 	Sound("vo/npc/male01/pain09.wav")
+-- }
 
-function GM:DoPlayerDeath(client, attacker, damageinfo)
-	client:AddDeaths(1)
+-- function GM:DoPlayerDeath(client, attacker, damageinfo)
+-- 	client:AddDeaths(1)
 
-	if (hook.Run("ShouldSpawnClientRagdoll", client) != false) then
-		client:CreateRagdoll()
-	end
+-- 	if (hook.Run("ShouldSpawnClientRagdoll", client) != false) then
+-- 		client:CreateRagdoll()
+-- 	end
 
-	if (IsValid(attacker) and attacker:IsPlayer()) then
-		if (client == attacker) then
-			attacker:AddFrags(-1)
-		else
-			attacker:AddFrags(1)
-		end
-	end
+-- 	if (IsValid(attacker) and attacker:IsPlayer()) then
+-- 		if (client == attacker) then
+-- 			attacker:AddFrags(-1)
+-- 		else
+-- 			attacker:AddFrags(1)
+-- 		end
+-- 	end
 
-	net.Start("ixPlayerDeath")
-	net.Send(client)
+-- 	net.Start("ixPlayerDeath")
+-- 	net.Send(client)
 
-	client:SetAction("@respawning", ix.config.Get("spawnTime", 5))
-	client:SetDSP(31)
-end
+-- 	client:SetAction("@respawning", ix.config.Get("spawnTime", 5))
+-- 	client:SetDSP(31)
+-- end
 
-function GM:PlayerDeath(client, inflictor, attacker)
-	local character = client:GetCharacter()
+-- function GM:PlayerDeath(client, inflictor, attacker)
+-- 	local character = client:GetCharacter()
 
-	if (character) then
-		if (IsValid(client.ixRagdoll)) then
-			client.ixRagdoll.ixIgnoreDelete = true
-			client:SetLocalVar("blur", nil)
+-- 	if (character) then
+-- 		if (IsValid(client.ixRagdoll)) then
+-- 			client.ixRagdoll.ixIgnoreDelete = true
+-- 			client:SetLocalVar("blur", nil)
 
-			if (hook.Run("ShouldRemoveRagdollOnDeath", client) != false) then
-				client.ixRagdoll:Remove()
-			end
-		end
+-- 			if (hook.Run("ShouldRemoveRagdollOnDeath", client) != false) then
+-- 				client.ixRagdoll:Remove()
+-- 			end
+-- 		end
 
-		client:SetNetVar("deathStartTime", CurTime())
-		client:SetNetVar("deathTime", CurTime() + ix.config.Get("spawnTime", 5))
+-- 		client:SetNetVar("deathStartTime", CurTime())
+-- 		client:SetNetVar("deathTime", CurTime() + ix.config.Get("spawnTime", 5))
 
-		character:SetData("health", nil)
+-- 		character:SetData("health", nil)
 
-		local deathSound = hook.Run("GetPlayerDeathSound", client)
+-- 		local deathSound = hook.Run("GetPlayerDeathSound", client)
 
-		if (deathSound != false) then
-			deathSound = deathSound or deathSounds[math.random(1, #deathSounds)]
+-- 		if (deathSound != false) then
+-- 			deathSound = deathSound or deathSounds[math.random(1, #deathSounds)]
 
-			if (client:IsFemale() and !deathSound:find("female")) then
-				deathSound = deathSound:gsub("male", "female")
-			end
+-- 			if (client:IsFemale() and !deathSound:find("female")) then
+-- 				deathSound = deathSound:gsub("male", "female")
+-- 			end
 
-			client:EmitSound(deathSound)
-		end
+-- 			client:EmitSound(deathSound)
+-- 		end
 
-		local weapon = attacker:IsPlayer() and attacker:GetActiveWeapon()
+-- 		local weapon = attacker:IsPlayer() and attacker:GetActiveWeapon()
 
-		ix.log.Add(client, "playerDeath",
-			attacker:GetName() ~= "" and attacker:GetName() or attacker:GetClass(), IsValid(weapon) and weapon:GetClass())
-	end
-end
+-- 		ix.log.Add(client, "playerDeath",
+-- 			attacker:GetName() ~= "" and attacker:GetName() or attacker:GetClass(), IsValid(weapon) and weapon:GetClass())
+-- 	end
+-- end
 
 local painSounds = {
 	Sound("vo/npc/male01/pain01.wav"),
@@ -701,17 +701,17 @@ function GM:PlayerHurt(client, attacker, health, damage)
 	ix.log.Add(client, "playerHurt", damage, attacker:GetName() ~= "" and attacker:GetName() or attacker:GetClass())
 end
 
-function GM:PlayerDeathThink(client)
-	if (client:GetCharacter()) then
-		local deathTime = client:GetNetVar("deathTime")
+-- function GM:PlayerDeathThink(client)
+-- 	if (client:GetCharacter()) then
+-- 		local deathTime = client:GetNetVar("deathTime")
 
-		if (deathTime and deathTime <= CurTime()) then
-			client:Spawn()
-		end
-	end
+-- 		if (deathTime and deathTime <= CurTime()) then
+-- 			client:Spawn()
+-- 		end
+-- 	end
 
-	return false
-end
+-- 	return false
+-- end
 
 function GM:PlayerDisconnected(client)
 	client:SaveData()
@@ -817,14 +817,14 @@ function GM:InitializedSchema()
 	game.ConsoleCommand("sbox_persist ix_"..Schema.folder.."\n")
 end
 
-function GM:PlayerCanHearPlayersVoice(listener, speaker)
-	if (!speaker:Alive()) then
-		return false
-	end
+-- function GM:PlayerCanHearPlayersVoice(listener, speaker)
+-- 	if (!speaker:Alive()) then
+-- 		return false
+-- 	end
 
-	local bCanHear = listener.ixVoiceHear and listener.ixVoiceHear[speaker]
-	return bCanHear, true
-end
+-- 	local bCanHear = listener.ixVoiceHear and listener.ixVoiceHear[speaker]
+-- 	return bCanHear, true
+-- end
 
 function GM:PlayerCanPickupWeapon(client, weapon)
 	local data = {}

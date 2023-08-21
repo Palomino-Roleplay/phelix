@@ -191,66 +191,66 @@ function PLUGIN:PostPlayerLoadout(client)
 	client:Give("ix_keys")
 end
 
-function PLUGIN:ShowTeam(client)
-	local data = {}
-		data.start = client:GetShootPos()
-		data.endpos = data.start + client:GetAimVector() * 96
-		data.filter = client
-	local trace = util.TraceLine(data)
-	local entity = trace.Entity
+-- function PLUGIN:ShowTeam(client)
+-- 	local data = {}
+-- 		data.start = client:GetShootPos()
+-- 		data.endpos = data.start + client:GetAimVector() * 96
+-- 		data.filter = client
+-- 	local trace = util.TraceLine(data)
+-- 	local entity = trace.Entity
 
-	if (IsValid(entity) and entity:IsDoor() and !entity:GetNetVar("faction") and !entity:GetNetVar("class")) then
-		if (entity:CheckDoorAccess(client, DOOR_TENANT)) then
-			local door = entity
+-- 	if (IsValid(entity) and entity:IsDoor() and !entity:GetNetVar("faction") and !entity:GetNetVar("class")) then
+-- 		if (entity:CheckDoorAccess(client, DOOR_TENANT)) then
+-- 			local door = entity
 
-			if (IsValid(door.ixParent)) then
-				door = door.ixParent
-			end
+-- 			if (IsValid(door.ixParent)) then
+-- 				door = door.ixParent
+-- 			end
 
-			net.Start("ixDoorMenu")
-				net.WriteEntity(door)
-				net.WriteTable(door.ixAccess)
-				net.WriteEntity(entity)
-			net.Send(client)
-		elseif (!IsValid(entity:GetDTEntity(0))) then
-			ix.command.Run(client, "doorbuy")
-		else
-			client:NotifyLocalized("notAllowed")
-		end
+-- 			net.Start("ixDoorMenu")
+-- 				net.WriteEntity(door)
+-- 				net.WriteTable(door.ixAccess)
+-- 				net.WriteEntity(entity)
+-- 			net.Send(client)
+-- 		elseif (!IsValid(entity:GetDTEntity(0))) then
+-- 			ix.command.Run(client, "doorbuy")
+-- 		else
+-- 			client:NotifyLocalized("notAllowed")
+-- 		end
 
-		return true
-	end
-end
+-- 		return true
+-- 	end
+-- end
 
-function PLUGIN:PlayerLoadedCharacter(client, curChar, prevChar)
-	if (prevChar) then
-		local doors = prevChar:GetVar("doors") or {}
+-- function PLUGIN:PlayerLoadedCharacter(client, curChar, prevChar)
+-- 	if (prevChar) then
+-- 		local doors = prevChar:GetVar("doors") or {}
 
-		for _, v in ipairs(doors) do
-			if (IsValid(v) and v:IsDoor() and v:GetDTEntity(0) == client) then
-				v:RemoveDoorAccessData()
-			end
-		end
+-- 		for _, v in ipairs(doors) do
+-- 			if (IsValid(v) and v:IsDoor() and v:GetDTEntity(0) == client) then
+-- 				v:RemoveDoorAccessData()
+-- 			end
+-- 		end
 
-		prevChar:SetVar("doors", nil)
-	end
-end
+-- 		prevChar:SetVar("doors", nil)
+-- 	end
+-- end
 
-function PLUGIN:PlayerDisconnected(client)
-	local character = client:GetCharacter()
+-- function PLUGIN:PlayerDisconnected(client)
+-- 	local character = client:GetCharacter()
 
-	if (character) then
-		local doors = character:GetVar("doors") or {}
+-- 	if (character) then
+-- 		local doors = character:GetVar("doors") or {}
 
-		for _, v in ipairs(doors) do
-			if (IsValid(v) and v:IsDoor() and v:GetDTEntity(0) == client) then
-				v:RemoveDoorAccessData()
-			end
-		end
+-- 		for _, v in ipairs(doors) do
+-- 			if (IsValid(v) and v:IsDoor() and v:GetDTEntity(0) == client) then
+-- 				v:RemoveDoorAccessData()
+-- 			end
+-- 		end
 
-		character:SetVar("doors", nil)
-	end
-end
+-- 		character:SetVar("doors", nil)
+-- 	end
+-- end
 
 net.Receive("ixDoorPermission", function(length, client)
 	local door = net.ReadEntity()
