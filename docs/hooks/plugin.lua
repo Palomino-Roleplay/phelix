@@ -444,8 +444,8 @@ function DrawPlayerRagdoll(entity)
 end
 
 --- @realm client
-function GetCharacterDescription(client)
-end
+-- function GetCharacterDescription(client)
+-- end
 
 --- @realm shared
 function GetCharacterName(speaker, chatType)

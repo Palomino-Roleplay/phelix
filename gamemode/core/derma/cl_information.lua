@@ -208,10 +208,10 @@ function PANEL:Update(character)
 		self.name:SizeToContents()
 	end
 
-	if (self.description) then
-		self.description:SetText(character:GetDescription())
-		self.description:SizeToContents()
-	end
+	-- if (self.description) then
+	-- 	self.description:SetText(character:GetDescription())
+	-- 	self.description:SizeToContents()
+	-- end
 
 	if (self.faction) then
 		self.faction:SetLabelText(L("faction"))
