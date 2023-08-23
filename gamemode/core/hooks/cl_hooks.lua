@@ -687,16 +687,16 @@ end
 
 function GM:PopulateCharacterInfo(client, character, container)
 	-- description
-	local descriptionText = character:GetDescription()
-	descriptionText = (descriptionText:utf8len() > 128 and
-		string.format("%s...", descriptionText:utf8sub(1, 125)) or
-		descriptionText)
+	-- local descriptionText = character:GetDescription()
+	-- descriptionText = (descriptionText:utf8len() > 128 and
+	-- 	string.format("%s...", descriptionText:utf8sub(1, 125)) or
+	-- 	descriptionText)
 
-	if (descriptionText != "") then
-		local description = container:AddRow("description")
-		description:SetText(descriptionText)
-		description:SizeToContents()
-	end
+	-- if (descriptionText != "") then
+	-- 	local description = container:AddRow("description")
+	-- 	description:SetText(descriptionText)
+	-- 	description:SizeToContents()
+	-- end
 end
 
 function GM:KeyRelease(client, key)
