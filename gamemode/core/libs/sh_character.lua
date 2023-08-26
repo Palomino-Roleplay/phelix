@@ -52,7 +52,7 @@ if (SERVER) then
 
 		local query = mysql:Insert("ix_characters")
 			query:Insert("name", data.name or "")
-			query:Insert("description", data.description or "")
+			-- query:Insert("description", data.description or "")
 			query:Insert("model", data.model or "models/error.mdl")
 			query:Insert("schema", Schema and Schema.folder or "phelix")
 			query:Insert("create_time", data.createTime)
@@ -285,9 +285,9 @@ function ix.char.New(data, id, client, steamID)
 		data.name = data.name:gsub("#", "#​")
 	end
 
-	if (data.description) then
-		data.description = data.description:gsub("#", "#​")
-	end
+	-- if (data.description) then
+	-- 	data.description = data.description:gsub("#", "#​")
+	-- end
 
 	local character = setmetatable({vars = {}}, ix.meta.character)
 		for k, v in pairs(data) do
@@ -378,35 +378,35 @@ do
 	-- @realm shared
 	-- @treturn string This character's current description
 	-- @function GetDescription
-	ix.char.RegisterVar("description", {
-		field = "description",
-		fieldType = ix.type.text,
-		default = "",
-		index = 2,
-		OnValidate = function(self, value, payload)
-			value = string.Trim((tostring(value):gsub("\r\n", ""):gsub("\n", "")))
-			local minLength = ix.config.Get("minDescriptionLength", 16)
+	-- ix.char.RegisterVar("description", {
+	-- 	field = "description",
+	-- 	fieldType = ix.type.text,
+	-- 	default = "",
+	-- 	index = 2,
+	-- 	OnValidate = function(self, value, payload)
+	-- 		value = string.Trim((tostring(value):gsub("\r\n", ""):gsub("\n", "")))
+	-- 		local minLength = ix.config.Get("minDescriptionLength", 16)
 
-			if (value:utf8len() < minLength) then
-				return false, "descMinLen", minLength
-			elseif (!value:find("%s+") or !value:find("%S")) then
-				return false, "invalid", "description"
-			end
+	-- 		if (value:utf8len() < minLength) then
+	-- 			return false, "descMinLen", minLength
+	-- 		elseif (!value:find("%s+") or !value:find("%S")) then
+	-- 			return false, "invalid", "description"
+	-- 		end
 
-			return value
-		end,
-		OnPostSetup = function(self, panel, payload)
-			panel:SetMultiline(true)
-			panel:SetFont("ixMenuButtonFont")
-			panel:SetTall(panel:GetTall() * 2 + 6) -- add another line
-			panel.AllowInput = function(_, character)
-				if (character == "\n" or character == "\r") then
-					return true
-				end
-			end
-		end,
-		alias = "Desc"
-	})
+	-- 		return value
+	-- 	end,
+	-- 	OnPostSetup = function(self, panel, payload)
+	-- 		panel:SetMultiline(true)
+	-- 		panel:SetFont("ixMenuButtonFont")
+	-- 		panel:SetTall(panel:GetTall() * 2 + 6) -- add another line
+	-- 		panel.AllowInput = function(_, character)
+	-- 			if (character == "\n" or character == "\r") then
+	-- 				return true
+	-- 			end
+	-- 		end
+	-- 	end,
+	-- 	alias = "Desc"
+	-- })
 
 	--- Sets this character's model. This sets the player's current model to the given one, and saves it to the character.
 	-- It is automatically networked.

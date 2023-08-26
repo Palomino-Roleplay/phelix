@@ -67,10 +67,10 @@ ix.config.Add("loocDelay", 0, "The delay before a player can use LOOC chat again
 	data = {min = 0, max = 10000},
 	category = "chat"
 })
-ix.config.Add("spawnTime", 5, "The time it takes to respawn.", nil, {
-	data = {min = 0, max = 10000},
-	category = "characters"
-})
+-- ix.config.Add("spawnTime", 5, "The time it takes to respawn.", nil, {
+-- 	data = {min = 0, max = 10000},
+-- 	category = "characters"
+-- })
 ix.config.Add("inventoryWidth", 6, "How many slots in a row there is in a default inventory.", nil, {
 	data = {min = 0, max = 20},
 	category = "characters"
@@ -87,10 +87,10 @@ ix.config.Add("maxNameLength", 32, "The maximum number of characters in a name."
 	data = {min = 16, max = 128},
 	category = "characters"
 })
-ix.config.Add("minDescriptionLength", 16, "The minimum number of characters in a description.", nil, {
-	data = {min = 0, max = 300},
-	category = "characters"
-})
+-- ix.config.Add("minDescriptionLength", 16, "The minimum number of characters in a description.", nil, {
+-- 	data = {min = 0, max = 300},
+-- 	category = "characters"
+-- })
 ix.config.Add("saveInterval", 300, "How often characters save in seconds.", nil, {
 	data = {min = 60, max = 3600},
 	category = "characters"
