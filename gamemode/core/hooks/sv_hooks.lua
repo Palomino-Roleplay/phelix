@@ -352,45 +352,45 @@ local function IsAdmin(_, client)
 end
 
 -- Set the gamemode hooks to the appropriate shortcuts.
-GM.PlayerGiveSWEP = IsAdmin
-GM.PlayerSpawnEffect = IsAdmin
-GM.PlayerSpawnSENT = IsAdmin
+-- GM.PlayerGiveSWEP = IsAdmin
+-- GM.PlayerSpawnEffect = IsAdmin
+-- GM.PlayerSpawnSENT = IsAdmin
 
-function GM:PlayerSpawnNPC(client, npcType, weapon)
-	return client:IsAdmin() or client:GetCharacter():HasFlags("n")
-end
+-- function GM:PlayerSpawnNPC(client, npcType, weapon)
+-- 	return client:IsAdmin() or client:GetCharacter():HasFlags("n")
+-- end
 
-function GM:PlayerSpawnSWEP(client, weapon, info)
-	return client:IsAdmin()
-end
+-- function GM:PlayerSpawnSWEP(client, weapon, info)
+-- 	return client:IsAdmin()
+-- end
 
-function GM:PlayerSpawnProp(client)
-	if (client:GetCharacter() and client:GetCharacter():HasFlags("e")) then
-		return true
-	end
+-- function GM:PlayerSpawnProp(client)
+-- 	if (client:GetCharacter() and client:GetCharacter():HasFlags("e")) then
+-- 		return true
+-- 	end
 
-	return false
-end
+-- 	return false
+-- end
 
-function GM:PlayerSpawnRagdoll(client)
-	if (client:GetCharacter() and client:GetCharacter():HasFlags("r")) then
-		return true
-	end
+-- function GM:PlayerSpawnRagdoll(client)
+-- 	if (client:GetCharacter() and client:GetCharacter():HasFlags("r")) then
+-- 		return true
+-- 	end
 
-	return false
-end
+-- 	return false
+-- end
 
-function GM:PlayerSpawnVehicle(client, model, name, data)
-	if (client:GetCharacter()) then
-		if (data.Category == "Chairs") then
-			return client:GetCharacter():HasFlags("c")
-		else
-			return client:GetCharacter():HasFlags("C")
-		end
-	end
+-- function GM:PlayerSpawnVehicle(client, model, name, data)
+-- 	if (client:GetCharacter()) then
+-- 		if (data.Category == "Chairs") then
+-- 			return client:GetCharacter():HasFlags("c")
+-- 		else
+-- 			return client:GetCharacter():HasFlags("C")
+-- 		end
+-- 	end
 
-	return false
-end
+-- 	return false
+-- end
 
 function GM:PlayerSpawnedEffect(client, model, entity)
 	entity:SetNetVar("owner", client:GetCharacter():GetID())
@@ -840,30 +840,30 @@ function GM:PlayerCanPickupWeapon(client, weapon)
 	return client.ixWeaponGive
 end
 
-function GM:OnPhysgunFreeze(weapon, physObj, entity, client)
-	-- Object is already frozen (!?)
-	if (!physObj:IsMoveable()) then return false end
-	if (entity:GetUnFreezable()) then return false end
+-- function GM:OnPhysgunFreeze(weapon, physObj, entity, client)
+-- 	-- Object is already frozen (!?)
+-- 	if (!physObj:IsMoveable()) then return false end
+-- 	if (entity:GetUnFreezable()) then return false end
 
-	physObj:EnableMotion(false)
+-- 	physObj:EnableMotion(false)
 
-	-- With the jeep we need to pause all of its physics objects
-	-- to stop it spazzing out and killing the server.
-	if (entity:GetClass() == "prop_vehicle_jeep") then
-		local objects = entity:GetPhysicsObjectCount()
+-- 	-- With the jeep we need to pause all of its physics objects
+-- 	-- to stop it spazzing out and killing the server.
+-- 	if (entity:GetClass() == "prop_vehicle_jeep") then
+-- 		local objects = entity:GetPhysicsObjectCount()
 
-		for i = 0, objects - 1 do
-			entity:GetPhysicsObjectNum(i):EnableMotion(false)
-		end
-	end
+-- 		for i = 0, objects - 1 do
+-- 			entity:GetPhysicsObjectNum(i):EnableMotion(false)
+-- 		end
+-- 	end
 
-	-- Add it to the player's frozen props
-	client:AddFrozenPhysicsObject(entity, physObj)
-	client:SendHint("PhysgunUnfreeze", 0.3)
-	client:SuppressHint("PhysgunFreeze")
+-- 	-- Add it to the player's frozen props
+-- 	client:AddFrozenPhysicsObject(entity, physObj)
+-- 	client:SendHint("PhysgunUnfreeze", 0.3)
+-- 	client:SuppressHint("PhysgunFreeze")
 
-	return true
-end
+-- 	return true
+-- end
 
 function GM:CanPlayerSuicide(client)
 	return false
