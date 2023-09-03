@@ -111,51 +111,51 @@ function GM:CanProperty(client, property, entity)
 	return false
 end
 
-function GM:PhysgunPickup(client, entity)
-	local bPickup = self.BaseClass:PhysgunPickup(client, entity)
+-- function GM:PhysgunPickup(client, entity)
+-- 	local bPickup = self.BaseClass:PhysgunPickup(client, entity)
 
-	if (!bPickup and entity:IsPlayer() and (client:IsSuperAdmin() or client:IsAdmin() and !entity:IsSuperAdmin())) then
-		bPickup = true
-	end
+-- 	if (!bPickup and entity:IsPlayer() and (client:IsSuperAdmin() or client:IsAdmin() and !entity:IsSuperAdmin())) then
+-- 		bPickup = true
+-- 	end
 
-	if (bPickup) then
-		if (entity:IsPlayer()) then
-			entity:SetMoveType(MOVETYPE_NONE)
-		elseif (!entity.ixCollisionGroup) then
-			entity.ixCollisionGroup = entity:GetCollisionGroup()
-			entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
-		end
-	end
+-- 	if (bPickup) then
+-- 		if (entity:IsPlayer()) then
+-- 			entity:SetMoveType(MOVETYPE_NONE)
+-- 		elseif (!entity.ixCollisionGroup) then
+-- 			entity.ixCollisionGroup = entity:GetCollisionGroup()
+-- 			entity:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+-- 		end
+-- 	end
 
-	return bPickup
-end
+-- 	return bPickup
+-- end
 
-function GM:PhysgunDrop(client, entity)
-	if (entity:IsPlayer()) then
-		entity:SetMoveType(MOVETYPE_WALK)
-	elseif (entity.ixCollisionGroup) then
-		entity:SetCollisionGroup(entity.ixCollisionGroup)
-		entity.ixCollisionGroup = nil
-	end
-end
+-- function GM:PhysgunDrop(client, entity)
+-- 	if (entity:IsPlayer()) then
+-- 		entity:SetMoveType(MOVETYPE_WALK)
+-- 	elseif (entity.ixCollisionGroup) then
+-- 		entity:SetCollisionGroup(entity.ixCollisionGroup)
+-- 		entity.ixCollisionGroup = nil
+-- 	end
+-- end
 
-do
-	local TOOL_DANGEROUS = {}
-	TOOL_DANGEROUS["dynamite"] = true
-	TOOL_DANGEROUS["duplicator"] = true
+-- do
+-- 	local TOOL_DANGEROUS = {}
+-- 	TOOL_DANGEROUS["dynamite"] = true
+-- 	TOOL_DANGEROUS["duplicator"] = true
 
-	function GM:CanTool(client, trace, tool)
-		if (client:IsAdmin()) then
-			return true
-		end
+-- 	function GM:CanTool(client, trace, tool)
+-- 		if (client:IsAdmin()) then
+-- 			return true
+-- 		end
 
-		if (TOOL_DANGEROUS[tool]) then
-			return false
-		end
+-- 		if (TOOL_DANGEROUS[tool]) then
+-- 			return false
+-- 		end
 
-		return self.BaseClass:CanTool(client, trace, tool)
-	end
-end
+-- 		return self.BaseClass:CanTool(client, trace, tool)
+-- 	end
+-- end
 
 function GM:Move(client, moveData)
 	local char = client:GetCharacter()
