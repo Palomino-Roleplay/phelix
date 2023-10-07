@@ -91,15 +91,15 @@ function ix.bar.DrawAction()
 	end
 end
 
-do
-	ix.bar.Add(function()
-		return math.max(LocalPlayer():Health() / LocalPlayer():GetMaxHealth(), 0)
-	end, Color(200, 50, 40), nil, "health")
+-- do
+-- 	ix.bar.Add(function()
+-- 		return math.max(LocalPlayer():Health() / LocalPlayer():GetMaxHealth(), 0)
+-- 	end, Color(200, 50, 40), nil, "health")
 
-	ix.bar.Add(function()
-		return math.min(LocalPlayer():Armor() / 100, 1)
-	end, Color(30, 70, 180), nil, "armor")
-end
+-- 	ix.bar.Add(function()
+-- 		return math.min(LocalPlayer():Armor() / 100, 1)
+-- 	end, Color(30, 70, 180), nil, "armor")
+-- end
 
 net.Receive("ixActionBar", function()
 	local start, finish = net.ReadFloat(), net.ReadFloat()
