@@ -704,7 +704,7 @@ function GM:KeyRelease(client, key)
 		return
 	end
 
-	if (key == IN_USE) then
+	if (key == IN_WALK) then
 		if (!ix.menu.IsOpen()) then
 			local data = {}
 			data.start = client:GetShootPos()
