@@ -11,6 +11,7 @@ ITEM.isGrenade = false
 ITEM.weaponCategory = "sidearm"
 ITEM.useSound = "items/ammo_pickup.wav"
 ITEM.iconColor = Color( 255, 98, 98 )
+ITEM.bDropOnDeath = true
 
 -- Inventory drawing
 if (CLIENT) then
