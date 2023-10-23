@@ -15,12 +15,12 @@ ITEM.bDropOnDeath = true
 
 -- Inventory drawing
 if (CLIENT) then
-	function ITEM:PaintOver(item, w, h)
-		if (item:GetData("equip")) then
-			surface.SetDrawColor(110, 255, 110, 100)
-			surface.DrawRect(w - 14, h - 14, 8, 8)
-		end
-	end
+	-- function ITEM:PaintOver(item, w, h)
+	-- 	if (item:GetData("equip")) then
+	-- 		surface.SetDrawColor(110, 255, 110, 100)
+	-- 		surface.DrawRect(w - 14, h - 14, 8, 8)
+	-- 	end
+	-- end
 
 	function ITEM:PopulateTooltip(tooltip)
 		if (self:GetData("equip")) then

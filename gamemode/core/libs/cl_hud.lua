@@ -35,21 +35,21 @@ function ix.hud.DrawItemPickup()
 end
 
 function ix.hud.PopulateItemTooltip(tooltip, item)
-	local name = tooltip:AddRow("name")
-	name:SetImportant()
-	name:SetText(item.GetName and item:GetName() or L(item.name))
-	name:SetMaxWidth(math.max(name:GetMaxWidth(), ScrW() * 0.5))
-	name:SizeToContents()
+	-- local name = tooltip:AddRow("name")
+	-- name:SetImportant()
+	-- name:SetText(item.GetName and item:GetName() or L(item.name))
+	-- name:SetMaxWidth(math.max(name:GetMaxWidth(), ScrW() * 0.5))
+	-- name:SizeToContents()
 
-	local description = tooltip:AddRow("description")
-	description:SetText(item:GetDescription() or "")
-	description:SizeToContents()
+	-- local description = tooltip:AddRow("description")
+	-- description:SetText(item:GetDescription() or "")
+	-- description:SizeToContents()
 
-	if (item.PopulateTooltip) then
-		item:PopulateTooltip(tooltip)
-	end
+	-- if (item.PopulateTooltip) then
+	-- 	item:PopulateTooltip(tooltip)
+	-- end
 
-	hook.Run("PopulateItemTooltip", tooltip, item)
+	-- hook.Run("PopulateItemTooltip", tooltip, item)
 end
 
 function ix.hud.PopulatePlayerTooltip(tooltip, client)

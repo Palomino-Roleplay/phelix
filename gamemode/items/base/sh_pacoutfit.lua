@@ -59,10 +59,10 @@ ITEM.bodyGroups = {
 if (CLIENT) then
 	-- Draw camo if it is available.
 	function ITEM:PaintOver(item, w, h)
-		if (item:GetData("equip")) then
-			surface.SetDrawColor(110, 255, 110, 100)
-			surface.DrawRect(w - 14, h - 14, 8, 8)
-		end
+		-- if (item:GetData("equip")) then
+		-- 	surface.SetDrawColor(110, 255, 110, 100)
+		-- 	surface.DrawRect(w - 14, h - 14, 8, 8)
+		-- end
 	end
 end
 
