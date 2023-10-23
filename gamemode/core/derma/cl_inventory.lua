@@ -256,9 +256,9 @@ end
 function PANEL:PaintOver(width, height)
 	local itemTable = self.itemTable
 
-	if (itemTable and itemTable.PaintOver) then
-		itemTable.PaintOver(self, itemTable, width, height)
-	end
+	-- if (itemTable and itemTable.PaintOver) then
+	-- 	itemTable.PaintOver(self, itemTable, width, height)
+	-- end
 end
 
 function PANEL:ExtraPaint(width, height)
