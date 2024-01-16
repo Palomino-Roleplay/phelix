@@ -127,9 +127,12 @@ ITEM.functions.Equip = {
 	tip = "equipTip",
 	icon = "icon16/tick.png",
 	OnRun = function(item)
+        if item.noAction then return false end
 		item.player:EmitSound( "items/ammopickup.wav" )
+        item.noAction = true
 		item.player:SetAction("Equipping " .. item.name, ix.config.Get("EquipTime", 3), function( pPlayer )
 			item:Equip( pPlayer )
+            item.noAction = false
 		end )
 
 		return false
@@ -137,6 +140,9 @@ ITEM.functions.Equip = {
 	OnCanRun = function(item)
 		local client = item.player
 
+        if item.noAction then 
+            return false 
+        end
 		return !IsValid(item.entity) and IsValid(client) and item:GetData("equip") != true and
 			hook.Run("CanPlayerEquipItem", client, item) != false
 	end

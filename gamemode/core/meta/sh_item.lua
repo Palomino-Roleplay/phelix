@@ -565,6 +565,10 @@ if (SERVER) then
 			return false, "same inv"
 		end
 
+        if self.noAction then
+            return false, "notAllowed"
+        end
+
 		local inventory = ix.item.inventories[invID]
 		local curInv = ix.item.inventories[self.invID or 0]
 
