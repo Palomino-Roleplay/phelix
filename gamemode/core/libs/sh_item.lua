@@ -149,7 +149,9 @@ function ix.item.Register(uniqueID, baseID, isBaseItem, path, luaGenerated)
 				end,
 				OnCanRun = function(item)
                     if item.noAction then
-                        client:NotifyLocalized("notAllowed")
+                        if item.player then
+                            item.player:NotifyLocalized("notAllowed")
+                        end
                         return false
                     end
 					return !IsValid(item.entity) and !item.noDrop
