@@ -717,7 +717,7 @@ do
 					inventory:Sync(client)
 				end
 
-				if ((inventory.owner and inventory.owner == character:GetID()) or inventory:OnCheckAccess(client)) then
+				if ((inventory.owner and inventory.owner == character:GetID()) and inventory:OnCheckAccess(client)) then
 					local item = inventory:GetItemAt(oldX, oldY)
 
 					if (item) then
