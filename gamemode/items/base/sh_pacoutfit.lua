@@ -96,6 +96,8 @@ ITEM.functions.EquipUn = { -- sorry, for name order.
 	OnRun = function(item)
 		item:RemovePart(item.player)
 
+		item.player:EmitSound( "ambient/materials/rock4.wav" )
+
 		return false
 	end,
 	OnCanRun = function(item)
@@ -135,6 +137,8 @@ ITEM.functions.Equip = {
 				char:AddBoost(item.uniqueID, k, v)
 			end
 		end
+
+		item.player:EmitSound( "ambient/materials/rock4.wav" )
 
 		item:OnEquipped()
 		return false
