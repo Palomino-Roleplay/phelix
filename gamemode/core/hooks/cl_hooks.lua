@@ -699,31 +699,31 @@ function GM:PopulateCharacterInfo(client, character, container)
 	-- end
 end
 
-function GM:KeyRelease(client, key)
-	if (!IsFirstTimePredicted()) then
-		return
-	end
+-- function GM:KeyRelease(client, key)
+-- 	if (!IsFirstTimePredicted()) then
+-- 		return
+-- 	end
 
-	if (key == IN_WALK) then
-		if (!ix.menu.IsOpen()) then
-			local data = {}
-			data.start = client:GetShootPos()
-			data.endpos = data.start + client:GetAimVector() * 96
-			data.filter = client
+-- 	if (key == IN_USE) then
+-- 		if (!ix.menu.IsOpen()) then
+-- 			local data = {}
+-- 			data.start = client:GetShootPos()
+-- 			data.endpos = data.start + client:GetAimVector() * 96
+-- 			data.filter = client
 
-			local entity = util.TraceLine(data).Entity
+-- 			local entity = util.TraceLine(data).Entity
 
-			if (IsValid(entity) and isfunction(entity.GetEntityMenu)) then
-				hook.Run("ShowEntityMenu", entity)
-			end
-		end
+-- 			if (IsValid(entity) and isfunction(entity.GetEntityMenu)) then
+-- 				hook.Run("ShowEntityMenu", entity)
+-- 			end
+-- 		end
 
-		timer.Remove("ixItemUse")
+-- 		timer.Remove("ixItemUse")
 
-		client.ixInteractionTarget = nil
-		client.ixInteractionStartTime = nil
-	end
-end
+-- 		client.ixInteractionTarget = nil
+-- 		client.ixInteractionStartTime = nil
+-- 	end
+-- end
 
 function GM:PlayerBindPress(client, bind, pressed)
 	bind = bind:lower()
