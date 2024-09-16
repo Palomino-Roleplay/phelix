@@ -834,7 +834,7 @@ if (SERVER) then
 				return false, "itemOwned"
 			end
 
-			if (hook.Run("CanTransferItem", item, ix.item.inventories[0], targetInv) == false) then
+			if (hook.Run("CanTransferItem", item, ix.item.inventories[0], targetInv, x, y) == false) then
 				return false, "notAllowed"
 			end
 
