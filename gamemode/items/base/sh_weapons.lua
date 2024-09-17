@@ -284,15 +284,15 @@ function ITEM:Unequip(client, bPlaySound, bRemoveItem)
 end
 
 function ITEM:CanTransfer(oldInventory, newInventory)
-	if (newInventory and self:GetData("equip")) then
-		local owner = self:GetOwner()
+	-- if (newInventory and self:GetData("equip")) then
+	-- 	local owner = self:GetOwner()
 
-		if (IsValid(owner)) then
-			owner:NotifyLocalized("equippedWeapon")
-		end
+	-- 	if (IsValid(owner)) then
+	-- 		owner:NotifyLocalized("equippedWeapon")
+	-- 	end
 
-		return false
-	end
+	-- 	return false
+	-- end
 
 	return true
 end
