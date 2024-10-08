@@ -9,6 +9,7 @@ ITEM.height = 2
 ITEM.isWeapon = true
 ITEM.isGrenade = false
 ITEM.weaponCategory = "sidearm"
+ITEM.equipSlotCategory = "equipment"
 ITEM.useSound = "items/ammo_pickup.wav"
 ITEM.iconColor = Color( 255, 98, 98 )
 ITEM.bDropOnDeath = true
@@ -293,6 +294,10 @@ function ITEM:CanTransfer(oldInventory, newInventory)
 
 	-- 	return false
 	-- end
+
+	if newInventory and string.StartsWith( newInventory.vars.isBag or "", "slots_" ) then
+		return self.weaponCategory == "primary" and ( newInventory.vars.isBag == "slots_primary" ) or ( newInventory.vars.isBag == "slots_equipment" )
+	end
 
 	return true
 end
