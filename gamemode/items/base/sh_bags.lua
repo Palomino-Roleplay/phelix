@@ -3,6 +3,9 @@ if (SERVER) then
 	util.AddNetworkString("ixBagDrop")
 end
 
+-- @TODO: (URGENT) we're never checking whether the bag is in the primary inventory or not for item transfers.
+-- make sure players cant hack and shit with that
+
 ITEM.name = "Bag"
 ITEM.description = "A bag to hold items."
 ITEM.model = "models/props_c17/suitcase001a.mdl"
@@ -199,9 +202,14 @@ function ITEM:CanTransfer(oldInventory, newInventory)
 	local index = self:GetData("id")
 
 	if (newInventory) then
-		-- if (newInventory.vars and newInventory.vars.isBag) then
-		-- 	return false
-		-- end
+		if newInventory.vars.isBag then
+			Print("transferring bag to inventory isBag of " .. newInventory.vars.isBag)
+		else
+			Print("transferring bag to inventory isBag of nil")
+		end
+		if (newInventory.vars and newInventory.vars.isBag and (newInventory.vars.isBag ~= "banking_character" and newInventory.vars.isBag ~= "slots_primary")) then
+			return false
+		end
 
 		local index2 = newInventory:GetID()
 
