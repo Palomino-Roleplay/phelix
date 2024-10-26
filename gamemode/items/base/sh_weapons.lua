@@ -9,6 +9,7 @@ ITEM.height = 2
 ITEM.isWeapon = true
 ITEM.isGrenade = false
 ITEM.weaponCategory = "sidearm"
+ITEM.equipSlotCategory = "equipment"
 ITEM.useSound = "items/ammo_pickup.wav"
 ITEM.iconColor = Color( 255, 98, 98 )
 ITEM.bDropOnDeath = true
@@ -127,9 +128,12 @@ ITEM.functions.Equip = {
 	tip = "equipTip",
 	icon = "icon16/tick.png",
 	OnRun = function(item)
+        if item.noAction then return false end
 		item.player:EmitSound( "items/ammopickup.wav" )
+        item.noAction = true
 		item.player:SetAction("Equipping " .. item.name, ix.config.Get("EquipTime", 3), function( pPlayer )
 			item:Equip( pPlayer )
+            item.noAction = false
 		end )
 
 		return false
@@ -137,6 +141,9 @@ ITEM.functions.Equip = {
 	OnCanRun = function(item)
 		local client = item.player
 
+        if item.noAction then 
+            return false 
+        end
 		return !IsValid(item.entity) and IsValid(client) and item:GetData("equip") != true and
 			hook.Run("CanPlayerEquipItem", client, item) != false
 	end
@@ -278,14 +285,18 @@ function ITEM:Unequip(client, bPlaySound, bRemoveItem)
 end
 
 function ITEM:CanTransfer(oldInventory, newInventory)
-	if (newInventory and self:GetData("equip")) then
-		local owner = self:GetOwner()
+	-- if (newInventory and self:GetData("equip")) then
+	-- 	local owner = self:GetOwner()
 
-		if (IsValid(owner)) then
-			owner:NotifyLocalized("equippedWeapon")
-		end
+	-- 	if (IsValid(owner)) then
+	-- 		owner:NotifyLocalized("equippedWeapon")
+	-- 	end
 
-		return false
+	-- 	return false
+	-- end
+
+	if newInventory and string.StartsWith( newInventory.vars.isBag or "", "slots_" ) then
+		return self.weaponCategory == "primary" and ( newInventory.vars.isBag == "slots_primary" ) or ( newInventory.vars.isBag == "slots_equipment" )
 	end
 
 	return true

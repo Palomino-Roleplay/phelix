@@ -96,6 +96,8 @@ ITEM.functions.EquipUn = { -- sorry, for name order.
 	OnRun = function(item)
 		item:RemovePart(item.player)
 
+		item.player:EmitSound( "ambient/materials/rock4.wav" )
+
 		return false
 	end,
 	OnCanRun = function(item)
@@ -136,6 +138,8 @@ ITEM.functions.Equip = {
 			end
 		end
 
+		item.player:EmitSound( "ambient/materials/rock4.wav" )
+
 		item:OnEquipped()
 		return false
 	end,
@@ -147,10 +151,36 @@ ITEM.functions.Equip = {
 	end
 }
 
-function ITEM:CanTransfer(oldInventory, newInventory)
-	if (newInventory and self:GetData("equip")) then
-		return false
+function ITEM:Equip( pPlayer )
+	self:SetData("equip", true)
+	pPlayer:AddPart(self.uniqueID, self)
+
+	if (self.attribBoosts) then
+		for k, v in pairs(self.attribBoosts) do
+			pPlayer:GetCharacter():AddBoost(self.uniqueID, k, v)
+		end
 	end
+
+	self:OnEquipped()
+end
+
+function ITEM:Unequip( pPlayer )
+	self:SetData("equip", false)
+	pPlayer:RemovePart(self.uniqueID)
+
+	if (self.attribBoosts) then
+		for k, _ in pairs(self.attribBoosts) do
+			pPlayer:GetCharacter():RemoveBoost(self.uniqueID, k)
+		end
+	end
+
+	self:OnUnequipped()
+end
+
+function ITEM:CanTransfer(oldInventory, newInventory)
+	-- if (newInventory and self:GetData("equip")) then
+	-- 	return false
+	-- end
 
 	return true
 end
